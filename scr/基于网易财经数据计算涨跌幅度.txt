@@ -1,0 +1,66 @@
+"""
+date:2018-7-31
+function:计算股价涨跌幅度技术指标
+author：susuxuer
+"""
+import urllib.request
+import re
+import csv
+import glob
+import time
+def get_all_comp(code,companyList): #读取文本信息和股价信息
+    all_files = glob.glob(r'D:/GFZQ/GFZQ/project/7_30_test/data/conferences/' + companyList +'.csv')
+    all_codes = glob.glob(r'D:/GFZQ/GFZQ/project/7_30_test/data/train/code/' + code +'.csv')
+    return all_files,all_codes
+
+def get_wenben(path):
+    csvfile = open(path, 'r', encoding='UTF-8')
+    reader = csv.reader(csvfile)
+    return reader
+
+def get_all_code(): #获取全部2016举办业绩说明会#获取业绩说明会时间，简称，全称，股票代码
+    path2 = 'D:/GFZQ/GFZQ/project/7_30_test/data/train/last_train.csv'
+    reader2 = get_wenben(path2)
+    companies = []
+    for item in reader2:
+        companies.append(item)
+    return companies
+
+def getPriceInformation(date,code,company):
+    conPath,codePath =  get_all_comp(code,company)
+    print (codePath[0])
+    conFile= get_wenben(conPath[0])
+    codeFile = csv.reader(open(codePath[0], 'r'))
+    question =[]
+    answer =[]
+    priceChange =[]
+    for item1 in conFile:    #说明会文本，问题和答案
+        question.append(item1[1])
+        answer.append(item1[2])
+    for item2 in codeFile:
+        priceChange.append(item2)
+    return priceChange
+
+#计算算数收益
+def getPriceChange(priceChange,date):
+    return
+
+
+
+
+def cal_price(companies,length):
+    #提取股票代码，读取股价信息
+    for i in range(length):
+        code = companies[i][3]
+        company= companies[i][2]
+        date = companies[i][0]
+        print (code)
+        priceChange = getPriceInformation(date, code, company)
+
+if __name__=='__main__':
+    start = time.clock()
+    length =2
+    companies  = get_all_code()
+    cal_price(companies, length)
+
+    print("TimeUse:%s" %(time.clock()-start))
