@@ -1,5 +1,6 @@
 ## emotion_analysis
   emotion analysis for earning communication Conference
+  基于业绩说明会的情感分析和股价波动分析
   
                             |--get_conference   #在全景网上爬取业绩说明会文本信息
        |---    1.get_source|
@@ -20,3 +21,6 @@
        |                        |--model            #训练模型
        |---    5.cal_similarity |
        |                        |--similarity.py   #计算投资者提问和管理者回答的相似程度
+       
+       数据分析比较关键的地方在于： 数据的质量、数据的维度
+               
